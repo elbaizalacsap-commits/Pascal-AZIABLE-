@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="logo-180.png">
+  <meta name="theme-color" content="#1E824C">
+
+  <title>P.Scalium ggg — Quel jour, jeux & cabinet de curiosités</title>
+</head>
+<body>
+  <div class="conteneur">
+
+    <!-- ============ EN-TETE / MARQUE ============ -->
+    <div class="topbar">
+      <img src="logo-192.png" alt="Logo P.Scalium ggg" class="logo">
+      <div class="topbar-texte">
+        <p class="marque">P.Scalium ggg</p>
+        <p class="topbar-souscription">Quel jour, jeux &amp; cabinet de curiosités</p>
+      </div>
+      <div class="solde-pieces" id="soldePieces" title="Tes pièces">🪙 0</div>
+      <button id="modeBtn" class="mode-toggle" title="Changer de thème" aria-label="Changer de thème">🌙</button>
+    </div>
+
+    <div class="pages">
+
+      <!-- ============================================================
+           PAGE 1 — ACCUEIL (calculateur de jour, existant)
+           ============================================================ -->
+      <div class="page actif" id="page-accueil">
+        <h1>Quel jour de la semaine ?</h1>
+        <p class="intro">Entre une date, n'importe quelle année — le calcul fonctionne pour toutes.</p>
+
+        <div class="champ">
+          <label for="jourInput">Jour</label>
+          <input type="number" id="jourInput" placeholder="ex : 17">
+        </div>
+
+        <div class="champ">
+          <label for="moisInput">Mois</label>
+          <select id="moisInput">
+            <option value="">-- Choisis un mois --</option>
+            <option value="1">Janvier</option>
+            <option value="2">Février</option>
+            <option value="3">Mars</option>
+            <option value="4">Avril</option>
+            <option value="5">Mai</option>
+            <option value="6">Juin</option>
+            <option value="7">Juillet</option>
+            <option value="8">Août</option>
+            <option value="9">Septembre</option>
+            <option value="10">Octobre</option>
+            <option value="11">Novembre</option>
+            <option value="12">Décembre</option>
+          </select>
+        </div>
+
+        <div class="champ">
+          <label for="anneeInput">Année</label>
+          <input type="number" id="anneeInput" placeholder="ex : 2026">
+        </div>
+
+        <button id="aujourdhuiBtn" class="btn-lien">📅 Utiliser la date d'aujourd'hui</button>
+
+        <div class="boutons">
+          <button id="calculerBtn" class="btn-principal">Calculer</button>
+          <button id="resetBtn" class="btn-secondaire">Réinitialiser</button>
+        </div>
+
+        <div id="resultatBloc" class="resultat-bloc">
+          <p id="resultatAffiche"></p>
+          <div class="partage-boutons" id="partageBoutons" style="display:none;">
+            <button id="copierBtn" class="btn-mini">📋 Copier</button>
+            <button id="partagerBtn" class="btn-mini" style="display:none;">📤 Partager</button>
+          </div>
+        </div>
+
+        <div id="extraZone" class="extra-zone">
+
+          <div class="mini-carte" id="carteAge" style="display:none;">
+            <span class="mini-carte-icone">🎂</span>
+            <span id="ageTexte"></span>
+          </div>
+
+          <div class="mini-carte" id="carteSigne" style="display:none;">
+            <span class="mini-carte-icone" id="signeSymbole"></span>
+            <span id="signeTexte"></span>
+          </div>
+
+          <div class="bloc-calendrier" id="blocCalendrier" style="display:none;">
+            <div class="bloc-titre">Calendrier du mois</div>
+            <div class="calendrier-entetes" id="calendrierEntetes"></div>
+            <div class="calendrier-grille" id="calendrierGrille"></div>
+          </div>
+
+          <div class="bloc-dates-cles" id="blocDatesCles" style="display:none;">
+            <div class="bloc-titre">Dates clés de <span id="anneeDatesCles"></span></div>
+            <div id="listeDatesCles"></div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ============================================================
+           PAGE 2 — JEUX
+           ============================================================ -->
+      <div class="page" id="page-jeux">
+        <h2 class="titre-page">🎮 Jeux P.Scalium ggg</h2>
+        <p class="intro">Gagne des pièces 🪙 à chaque partie, puis dépense-les dans la boutique.</p>
+
+        <!-- Menu des jeux -->
+        <div class="sous-page actif" id="jeu-menu">
+          <div class="jeux-grille">
+            <div class="jeu-carte" data-jeu="devine">
+              <span class="jeu-carte-icone">📅</span>
+              <span class="jeu-carte-nom">Devine le jour !</span>
+              <span class="jeu-carte-gain">+10 🪙 / bonne réponse</span>
+            </div>
+            <div class="jeu-carte" data-jeu="quiz">
+              <span class="jeu-carte-icone">🧠</span>
+              <span class="jeu-carte-nom">Quiz Culture</span>
+              <span class="jeu-carte-gain">+15 🪙 / bonne réponse</span>
+            </div>
+            <div class="jeu-carte" data-jeu="memoire">
+              <span class="jeu-carte-icone">🃏</span>
+              <span class="jeu-carte-nom">Mémoire Antique</span>
+              <span class="jeu-carte-gain">jusqu'à 150 🪙</span>
+            </div>
+            <div class="jeu-carte" data-jeu="roue">
+              <span class="jeu-carte-icone">🎡</span>
+              <span class="jeu-carte-nom">Roue de la Fortune</span>
+              <span class="jeu-carte-gain">1 tour gratuit / jour</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sous-jeu : Devine le jour -->
+        <div class="sous-page" id="jeu-devine">
+          <button class="retour-btn" data-retour="jeu-menu">← Retour aux jeux</button>
+          <div class="bloc-titre">📅 Devine le jour !</div>
+          <p class="jeu-question">Quel jour de la semaine était le <b id="jeuDateTexte">...</b> ?</p>
+          <div class="jeu-reponses" id="jeuReponses"></div>
+          <p id="jeuFeedback" class="jeu-feedback"></p>
+          <div class="jeu-bas">
+            <span id="jeuScore">Score : 0 / 0</span>
+            <button id="jeuNouvelleBtn" class="btn-mini">Nouvelle question ▶</button>
+          </div>
+        </div>
+
+        <!-- Sous-jeu : Quiz culture -->
+        <div class="sous-page" id="jeu-quiz">
+          <button class="retour-btn" data-retour="jeu-menu">← Retour aux jeux</button>
+          <div class="bloc-titre">🧠 Quiz Culture</div>
+          <p class="quiz-progression" id="quizProgression">Question 1 / 5</p>
+          <p class="quiz-question" id="quizQuestion">...</p>
+          <div class="quiz-choix" id="quizChoix"></div>
+          <p id="quizFeedback" class="jeu-feedback"></p>
+          <div class="jeu-bas">
+            <span id="quizScore">Score : 0 / 0</span>
+            <button id="quizSuivanteBtn" class="btn-mini">Suivante ▶</button>
+          </div>
+        </div>
+
+        <!-- Sous-jeu : Memoire -->
+        <div class="sous-page" id="jeu-memoire">
+          <button class="retour-btn" data-retour="jeu-menu">← Retour aux jeux</button>
+          <div class="bloc-titre">🃏 Mémoire Antique</div>
+          <div class="memo-entete">
+            <span id="memoCoups">Coups : 0</span>
+            <span id="memoPaires">Paires : 0 / 8</span>
+          </div>
+          <div class="memo-grille" id="memoGrille"></div>
+          <div class="jeu-bas">
+            <span id="memoRecompense"></span>
+            <button id="memoRejouerBtn" class="btn-mini">Nouvelle grille ▶</button>
+          </div>
+        </div>
+
+        <!-- Sous-jeu : Roue de la fortune -->
+        <div class="sous-page" id="jeu-roue">
+          <button class="retour-btn" data-retour="jeu-menu">← Retour aux jeux</button>
+          <div class="bloc-titre">🎡 Roue de la Fortune</div>
+          <div class="roue-zone">
+            <div class="roue" id="roue"><span class="roue-fleche">🔻</span></div>
+            <p class="roue-resultat" id="roueResultat"></p>
+            <button id="roueLancerBtn" class="btn-principal">Lancer la roue</button>
+            <p class="roue-attente" id="roueAttente" style="display:none;">Reviens demain pour un nouveau tour gratuit !</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           PAGE 3 — BOUTIQUE
+           ============================================================ -->
+      <div class="page" id="page-boutique">
+        <h2 class="titre-page">🛍️ Boutique d'objets historiques</h2>
+        <p class="intro">Échange tes pièces 🪙 contre des objets à collectionner.</p>
+        <div class="boutique-filtres" id="boutiqueFiltres">
+          <button class="filtre-btn actif" data-filtre="tous">Tous</button>
+          <button class="filtre-btn" data-filtre="commun">Communs</button>
+          <button class="filtre-btn" data-filtre="rare">Rares</button>
+          <button class="filtre-btn" data-filtre="legendaire">Légendaires</button>
+        </div>
+        <div class="objet-grille" id="objetGrille"></div>
+      </div>
+
+      <!-- ============================================================
+           PAGE 4 — DICTIONNAIRE
+           ============================================================ -->
+      <div class="page" id="page-dico">
+        <h2 class="titre-page">📖 Dictionnaire</h2>
+        <p class="intro">Histoire, science et philosophie, en définitions courtes.</p>
+        <div class="dico-recherche">
+          <input type="text" id="dicoRecherche" placeholder="Rechercher un terme…">
+        </div>
+        <div class="boutique-filtres" id="dicoFiltres">
+          <button class="filtre-btn actif" data-filtre="tous">Tous</button>
+          <button class="filtre-btn" data-filtre="histoire">Histoire</button>
+          <button class="filtre-btn" data-filtre="science">Science</button>
+          <button class="filtre-btn" data-filtre="philosophie">Philosophie</button>
+        </div>
+        <div id="dicoListe"></div>
+      </div>
+
+      <!-- ============================================================
+           PAGE 5 — AUTEURS
+           ============================================================ -->
+      <div class="page" id="page-auteurs">
+        <h2 class="titre-page">👤 Auteurs célèbres</h2>
+        <p class="intro">Quelques figures qui ont marqué l'histoire, la science et la pensée.</p>
+        <div id="auteursListe"></div>
+      </div>
+
+      <!-- ============================================================
+           PAGE 6 — ACTUS / PUBLICATIONS
+           ============================================================ -->
+      <div class="page" id="page-actus">
+        <h2 class="titre-page">📰 Actus &amp; mises à jour</h2>
+        <p class="intro">Les dernières publications de P.Scalium ggg.</p>
+        <div id="postsListe"></div>
+
+        <div class="admin-zone" id="adminZone">
+          <a class="btn-lien" href="/admin/" style="display:block;text-decoration:none;">🔐 Gérer les publications (réservé) →</a>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           PAGE 7 — COMPTE
+           ============================================================ -->
+      <div class="page" id="page-compte">
+
+        <!-- Non connecte -->
+        <div id="compteDeconnecte">
+          <h2 class="titre-page">🙍 Mon compte</h2>
+          <div class="onglets-auth">
+            <button class="actif" id="ongletConnexionBtn">Connexion</button>
+            <button id="ongletInscriptionBtn">Inscription</button>
+          </div>
+
+          <div id="formConnexion">
+            <div class="champ">
+              <label for="loginPseudo">Pseudo</label>
+              <input type="text" id="loginPseudo" placeholder="Ton pseudo">
+            </div>
+            <div class="champ">
+              <label for="loginMotDePasse">Mot de passe</label>
+              <input type="password" id="loginMotDePasse" placeholder="Ton mot de passe">
+            </div>
+            <button class="btn-principal" id="loginBtn" style="width:100%;">Se connecter</button>
+            <p class="message-etat" id="loginMessage"></p>
+          </div>
+
+          <div id="formInscription" style="display:none;">
+            <div class="champ">
+              <label for="regPseudo">Choisis un pseudo</label>
+              <input type="text" id="regPseudo" placeholder="ex : ChercheurDuTemps">
+            </div>
+            <div class="champ">
+              <label for="regMotDePasse">Choisis un mot de passe</label>
+              <input type="password" id="regMotDePasse" placeholder="6 caractères minimum">
+            </div>
+            <button class="btn-principal" id="regBtn" style="width:100%;">Créer mon compte</button>
+            <p class="message-etat" id="regMessage"></p>
+          </div>
+
+          <p class="avertissement">⚠️ Ce compte est stocké uniquement sur cet appareil, dans ce navigateur (pas de serveur derrière). Ne réutilise pas un mot de passe que tu utilises ailleurs.</p>
+        </div>
+
+        <!-- Connecte -->
+        <div id="compteConnecte" style="display:none;">
+          <div class="compte-avatar" id="compteAvatar">?</div>
+          <h2 class="titre-page" style="text-align:center;" id="comptePseudo">—</h2>
+          <div class="compte-stat-ligne"><span>Pièces</span><b id="comptePieces">0 🪙</b></div>
+          <div class="compte-stat-ligne"><span>Objets collectionnés</span><b id="compteNbObjets">0</b></div>
+          <div class="compte-stat-ligne"><span>Membre depuis</span><b id="compteDepuis">—</b></div>
+
+          <div class="bloc-titre">Ma collection</div>
+          <div class="ma-collection-grille" id="maCollectionGrille"></div>
+
+          <button class="btn-secondaire boutons" id="logoutBtn" style="width:100%;margin-top:14px;padding:10px;border:none;border-radius:9px;">Se déconnecter</button>
+        </div>
+
+        <div class="apropos-bloc" style="margin-top:18px;border-top:1.5px dashed var(--border);padding-top:12px;">
+          <p><b>À propos.</b> Cette application est créée et maintenue par <b>P.Scalium ggg</b>.</p>
+          <p class="apropos-signature">P. Scalaire Scalium dit ELBAIZA Lacsap, alias ggg.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ============ NAVIGATION PAR ONGLETS ============ -->
+    <div class="nav-onglets" id="navOnglets">
+      <button class="onglet actif" data-page="page-accueil"><span class="onglet-icone">🏠</span>Accueil</button>
+      <button class="onglet" data-page="page-jeux"><span class="onglet-icone">🎮</span>Jeux</button>
+      <button class="onglet" data-page="page-boutique"><span class="onglet-icone">🛍️</span>Boutique</button>
+      <button class="onglet" data-page="page-dico"><span class="onglet-icone">📖</span>Dico</button>
+      <button class="onglet" data-page="page-auteurs"><span class="onglet-icone">👤</span>Auteurs</button>
+      <button class="onglet" data-page="page-actus"><span class="onglet-icone">📰</span>Actus</button>
+      <button class="onglet" data-page="page-compte"><span class="onglet-icone">🙍</span>Compte</button>
+    </div>
+
+    <p class="pied">© <b>P.Scalium ggg</b> — tous droits réservés</p>
+  </div>
+
+  <!-- Netlify Identity (necessaire pour que /admin/ puisse authentifier P.Scalium ggg via Git Gateway) -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script>
+    // Redirection standard recommandee par Netlify Identity : quand quelqu'un
+    // clique sur le lien d'invitation/confirmation recu par email, on le
+    // renvoie vers /admin/ pour qu'il puisse y definir son mot de passe.
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", user => {
+        if (!user) {
+          window.netlifyIdentity.on("login", () => {
+            document.location.href = "/admin/";
+          });
+        }
+      });
+    }
+  </script>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
